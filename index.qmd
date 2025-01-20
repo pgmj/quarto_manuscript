@@ -1,110 +1,53 @@
 ---
-title: La Palma Earthquakes
+title: "Detecting item misfit in Rasch models"
 author:
-  - name: Steve Purves
-    orcid: 0000-0002-0760-5497
+  - name: Magnus Johansson, PhD
+    affiliations:
+      - name: RISE Research Institutes of Sweden, Division Built Environment, System Transition
+      - name: Centre for Psychiatry Research, Department of Clinical Neuroscience, Karolinska Institutet, & Stockholm Health Care Services, Region Stockholm
+    orcid: 0000-0003-1669-592X
+    email: pgmj@pm.me
     corresponding: true
-    email: steve@curvenote.com
-    roles:
-      - Investigation
-      - Project administration
-      - Software
-      - Visualization
-    affiliations:
-      - Curvenote
-  - name: Rowan Cockett
-    orcid: 0000-0002-7859-8394
-    corresponding: false
-    roles: []
-    affiliations:
-      - Curvenote
 keywords:
-  - La Palma
-  - Earthquakes
+  - Rasch
+  - Psychometrics
+  - Item fit
+  - Cutoffs
+  - Critical values
+  - Model fit
 abstract: |
-  In September 2021, a significant jump in seismic activity on the island of La Palma (Canary Islands, Spain) signaled the start of a volcanic crisis that still continues at the time of writing. Earthquake data is continually collected and published by the Instituto Geográphico Nacional (IGN). ...
-plain-language-summary: |
-  Earthquake data for the island of La Palma from the September 2021 eruption is found ...
+  Psychometrics have long relied on rule-of-thumb critical values for goodness of fit metrics. With  powerful personal computers it is both feasible and desirable to use simulation methods to determine appropriate cutoff values. This paper evaluates the use of an R package for Rasch psychometrics that has implemented functions to simplify the process of determining simulation-based cutoff values. Through six simulation studies, comparisons are made between information-weighted conditional item fit ("infit") and item-restscore correlations using Goodman and Kruskal’s $\gamma$. Results indicate the limitations of small samples (n < 500) in correctly detecting item misfit, especially when a larger proportion of items are misfit and/or when misfit items are off-target. Infit with simulation-based cutoffs outperforms item-restscore with sample sizes below 500. Both methods result in problematic rates of false positives with large samples (n >= 1000). Large datasets should be analyzed using nonparametric bootstrap of subsamples with item-restscore to reduce the risk of type-1 errors. Finally, the importance of an iterative analysis process is emphasized, since a situation where several items show underfit will cause other items to show overfit. Underfit items should be removed one at a time, and a re-analysis conducted for each step to avoid erroneously eliminating items.
 key-points:
-  - A web scraping script was developed to pull data from the Instituto Geogràphico Nacional into a machine-readable form for analysis
-  - Earthquake events on La Palma are consistent with the presence of both mantle and crustal reservoirs.
+  - Rule-of-thumb critical values for item fit metrics should be replaced with simulation-based values
+  - Sample size affects the detection rate and false positive rate
+  - More misfitting items increase the false positive rate
+  - Mean squared unweighted "outfit" is not useful
 date: last-modified
 bibliography: references.bib
+shorttitle: Detecting item misfit in Rasch models
+notebook-links: global
+license: "CC BY"
+funding: "The author received no specific funding for this work."
 citation:
-  container-title: Earth and Space Science
-number-sections: true
+  doi: 10.31219/osf.io/j8fg2
+editor_options: 
+  chunk_output_type: console
 ---
 
-## Introduction
 
-```{r}
-eruptions <- c(1492, 1585, 1646, 1677, 1712, 1949, 1971, 2021)
-n_eruptions <- length(eruptions)
-```
+# Introduction
 
-```{r}
-#| label: fig-timeline
-#| fig-cap: Timeline of recent earthquakes on La Palma
-#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.
-#| fig-height: 1.5
-#| fig-width: 6
-par(mar = c(3, 1, 1, 1) + 0.1)
-plot(eruptions, rep(0, n_eruptions), 
-  pch = "|", axes = FALSE)
-axis(1)
-box()
-```
+# Methods {#sec-methods}
 
-```{r}
-#| output: false
-avg_years_between_eruptions <- mean(diff(eruptions[-n_eruptions]))
-avg_years_between_eruptions
-```
+# Results
 
-Based on data up to and including 1971, eruptions on La Palma happen every `{r} round(avg_years_between_eruptions, 1)` years on average.
+# Discussion
 
-Studies of the magma systems feeding the volcano, such as @marrero2019, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).
+## Limitations
 
-Eight eruptions have been recorded since the late 1400s (@fig-timeline).
+## Conclusions
 
-Data and methods are discussed in @sec-data-methods.
-
-Let $x$ denote the number of eruptions in a year. Then, $x$ can be modeled by a Poisson distribution
-
-$$
-p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !}
-$$ {#eq-poisson}
-
-where $\lambda$ is the rate of eruptions per year. Using @eq-poisson, the probability of an eruption in the next $t$ years can be calculated.
-
-| Name                 | Year   |
-| -------------------- | ------ |
-| Current              | 2021   |
-| Teneguía             | 1971   |
-| Nambroque            | 1949   |
-| El Charco            | 1712   |
-| Volcán San Antonio   | 1677   |
-| Volcán San Martin    | 1646   |
-| Tajuya near El Paso  | 1585   |
-| Montaña Quemada      | 1492   |
-
-: Recent historic eruptions on La Palma {#tbl-history}
-
-@tbl-history summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.
-
-![Map of La Palma](images/la-palma-map.png){#fig-map}
-
-La Palma is one of the west most islands in the Volcanic Archipelago of the Canary Islands (@fig-map). 
-
-{{< embed notebooks/explore-earthquakes.qmd#fig-spatial-plot >}}
-
-@fig-spatial-plot shows the location of recent Earthquakes on La Palma.
-
-## Data & Methods {#sec-data-methods}
-
-## Conclusion
-
-## References {.unnumbered}
+# References {.unnumbered}
 
 :::{#refs}
 

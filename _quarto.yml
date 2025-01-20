@@ -3,15 +3,39 @@ project:
 
 execute:
   freeze: auto
+  warning: false
+  message: false
 
 format:
   html:
     toc: true
+    number-sections: true
+    citations-hover: true
+    crossrefs-hover: true
+    other-links:
+      - text: GitHub code repository
+        icon: file-code
+        href: https://github.com/pgmj/rasch_itemfit
+      - text: OSF preprint
+        icon: file-pdf
+        href: https://osf.io/preprints/osf/j8fg2
     comments:
       hypothesis: true
-  docx: default
-  jats: default
-  agu-pdf: default
+    csl: apa.csl
 
+  pdf:
+    number-sections: false
+    notebook-links: global
+    csl: apa.csl
 
-
+  apaquarto-docx:
+    fig-dpi: 175
+    number-sections: false
+    csl: apa.csl
+  
+  # preprint-typst:
+  #   number-sections: true
+  #   running-head: "*Preprint:* Detecting item misfit in Rasch models"
+  #   authornote: This manuscript is not yet peer-reviewed.
+  #   citeproc: true
+  #   csl: https://www.zotero.org/styles/apa-with-abstract
